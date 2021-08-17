@@ -7,14 +7,26 @@ module.exports = {
       backgroundColor: (theme) => ({
         ...theme('colors'),
         'main-background': '#F4F1EC'
-      })
+      }),
+      height: {
+        128: '512px'
+      },
+      letterSpacing: {
+        wider: '0.3em',
+        widest: '0.6em'
+      }
     },
     fontFamily: {
       'open-sans': ['"Open Sans"', 'sans-serif'],
       sacramento: ['Sacramento', 'sans-serif']
     },
-    letterSpacing: {
-      widest: '0.6em'
+    fill: (theme) => ({
+      ...theme('colors'),
+      'main-background': '#F4F1EC'
+    }),
+    scale: {
+      600: '6',
+      6000: '-6'
     }
   },
   variants: {
