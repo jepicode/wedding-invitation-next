@@ -23,7 +23,7 @@
   },
   "plugins": ["react"],
   "rules": {
-    "linebreak-style": ["error", "windows"],
+    "linebreak-style": 0,
     "jsx-quotes": ["error", "prefer-single"],
     "comma-dangle": ["error", "never"]
   }
