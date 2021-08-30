@@ -6,14 +6,23 @@ module.exports = {
     extend: {
       backgroundColor: (theme) => ({
         ...theme('colors'),
-        'main-background': '#F4F1EC'
+        'main-background': '#F4F1EC',
+        brown: '#AE8F7A'
       }),
       height: {
-        128: '512px'
+        128: '512px',
+        152: '608px'
       },
       letterSpacing: {
         wider: '0.3em',
         widest: '0.6em'
+      },
+      textColor: {
+        brown: '#AE8F7A'
+      },
+      screens: {
+        xs: '320px',
+        sm: '640px'
       }
     },
     fontFamily: {

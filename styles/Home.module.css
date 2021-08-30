@@ -1,5 +1,5 @@
 .secondPhoto {
-  background: url('../public//second-photo.jpg') center top;
+  background: url('../public/second-photo.jpg') center top no-repeat;
   opacity: 0.3;
   top: 0;
   left: 0;
