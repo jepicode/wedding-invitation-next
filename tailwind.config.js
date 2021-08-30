@@ -18,6 +18,7 @@ module.exports = {
         widest: '0.6em'
       },
       textColor: {
+        'main-background': '#F4F1EC',
         brown: '#AE8F7A'
       },
       screens: {
