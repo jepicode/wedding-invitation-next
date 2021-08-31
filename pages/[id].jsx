@@ -19,6 +19,9 @@ import Sound from 'react-sound';
 import { Parallax } from 'react-parallax';
 import ImageViewer from 'react-simple-image-viewer';
 import { useRouter } from 'next/dist/client/router';
+import AkadOnly from '../public/akad-only.json';
+import AkadResepsi from '../public/akad-resepsi.json';
+import ShowTitle from '../public/show-title.json';
 
 export default function Home() {
   const [name, setName] = useState('');
@@ -28,10 +31,19 @@ export default function Home() {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [soundStatus, setSoundStatus] = useState(Sound.status.STOPPED);
   const [showCover, setShowCover] = useState(true);
+  const [showNormal, setShowNormal] = useState(true);
+  const [invitationName, setInvitationName] = useState('');
+  const [isShowTitle, setShowTitle] = useState(false);
 
   const router = useRouter();
-  const { pid } = router.query;
-  console.log(pid);
+  const { id } = router.query;
+  if (AkadOnly[id] && !invitationName) {
+    setShowNormal(false);
+    setInvitationName(AkadOnly[id]);
+  } else if (AkadResepsi[id] && !invitationName) {
+    setInvitationName(AkadResepsi[id]);
+    if (ShowTitle.find((selectedName) => selectedName === AkadResepsi[id])) setShowTitle(true);
+  }
 
   const images = [
     '/slideshow/01.jpg',
@@ -104,6 +116,9 @@ export default function Home() {
                 <br />
                 Bapak/Ibu/Saudra/i
               </div>
+              <div className='tw-text-shadow-lg tw-text-lg tw-text-white tw-font-bold tw-font-open-sans tw-underline'>
+                {invitationName}
+              </div>
               <button type='button' className='tw-text-white tw-border tw-border-white tw-px-4 tw-py-1 tw-rounded tw-my-8' onClick={() => { setSoundStatus(Sound.status.PLAYING); setShowCover(false); }}>
                 Buka Undangan
               </button>
@@ -151,7 +166,9 @@ export default function Home() {
                   <br />
                   Bapak/Ibu/Saudra/i
                 </div>
-                <div className='tw-font-sacramento tw-text-5xl tw-my-4 tw-font-bold'>Nama Tamu Undangan</div>
+                <div className='tw-font-sacramento tw-text-5xl tw-my-4 tw-font-bold'>
+                  {invitationName || 'Nama Tamu Undangan'}
+                </div>
                 <div>Di tempat.</div>
               </div>
 
@@ -160,7 +177,10 @@ export default function Home() {
               <div className='tw-w-1/2 tw-text-center tw-mx-auto tw-my-0 tw-uppercase tw-text-3xl tw-mb-8'>The Wedding Of</div>
               <div className='tw-mx-auto tw-my-0 tw-text-center sm:tw-flex tw-block tw-items-center'>
                 <div className='sm:tw-w-1/3'>
-                  <div className='tw-font-sacramento tw-text-3xl tw-font-bold'>Jepi Usuluddin</div>
+                  <div className='tw-font-sacramento tw-text-3xl tw-font-bold'>
+                    Jepi Usuluddin
+                    {isShowTitle && ', S.T'}
+                  </div>
                   <div className='tw-text-sm tw-text-gray-600 tw-mt-4'>
                     Putra dari
                     <br />
@@ -171,7 +191,10 @@ export default function Home() {
                   <Image src='/main-photo.png' alt='Main Photo' width={500} height={500} />
                 </div>
                 <div className='sm:tw-w-1/3'>
-                  <div className='tw-font-sacramento tw-text-3xl tw-font-bold'>Reza Ayu Pertiwi</div>
+                  <div className='tw-font-sacramento tw-text-3xl tw-font-bold'>
+                    Reza Ayu Pertiwi
+                    {isShowTitle && ', S.Farm'}
+                  </div>
                   <div className='tw-text-sm tw-text-gray-600 tw-mt-4'>
                     Putri dari
                     <br />
@@ -221,7 +244,7 @@ export default function Home() {
               <div className='tw-font-sacramento tw-text-5xl tw-my-4 tw-font-bold'>When &amp; Where</div>
             </div>
 
-            <div className='sm:tw-flex tw-block tw-justify-between tw-my-8'>
+            <div className={`sm:tw-flex tw-block ${showNormal ? 'tw-justify-between' : 'tw-justify-center'} tw-my-8`}>
               <div className='tw-bg-white sm:tw-m-0 tw-m-4 tw-py-8 tw-px-16 tw-text-center tw-font-open-sans tw-rounded-lg tw-shadow-md'>
                 <div className='tw-flex tw-justify-center tw-text-5xl'>
                   <FaCalendarCheck className='tw-fill-current tw-text-gray-600' />
@@ -239,26 +262,28 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className='tw-bg-white sm:tw-m-0 tw-m-4 tw-py-8 tw-px-16 tw-text-center tw-font-open-sans tw-rounded-lg tw-shadow-md'>
-                <div className='tw-flex tw-justify-center tw-text-5xl'>
-                  <FaCalendarCheck className='tw-fill-current tw-text-gray-600' />
+              {showNormal && (
+                <div className='tw-bg-white sm:tw-m-0 tw-m-4 tw-py-8 tw-px-16 tw-text-center tw-font-open-sans tw-rounded-lg tw-shadow-md'>
+                  <div className='tw-flex tw-justify-center tw-text-5xl'>
+                    <FaCalendarCheck className='tw-fill-current tw-text-gray-600' />
+                  </div>
+                  <div className='tw-text-2xl tw-my-3'>Resepsi</div>
+                  <div className='tw-text-gray-600'>Sabtu, 11 September 2021</div>
+                  <div className='tw-border-t tw-border-black tw-w-1/3 tw-mx-auto tw-my-8' />
+                  <div className='tw-text-xl'>
+                    Pukul 12.00
+                    <span className='tw-text-sm'> s/d </span>
+                    17.00 WIB
+                  </div>
+                  <div className='tw-text-sm tw-italic'>
+                    Kp. Pangradin 2 RT 001/RW 005
+                    <br />
+                    Desa Pangradin, Kec. Jasinga
+                    <br />
+                    Kab. Bogor, Jawa Barat
+                  </div>
                 </div>
-                <div className='tw-text-2xl tw-my-3'>Resepsi</div>
-                <div className='tw-text-gray-600'>Sabtu, 11 September 2021</div>
-                <div className='tw-border-t tw-border-black tw-w-1/3 tw-mx-auto tw-my-8' />
-                <div className='tw-text-xl'>
-                  Pukul 12.00
-                  <span className='tw-text-sm'> s/d </span>
-                  17.00 WIB
-                </div>
-                <div className='tw-text-sm tw-italic'>
-                  Kp. Pangradin 2 RT 001/RW 005
-                  <br />
-                  Desa Pangradin, Kec. Jasinga
-                  <br />
-                  Kab. Bogor, Jawa Barat
-                </div>
-              </div>
+              )}
             </div>
           </div>
 
@@ -389,7 +414,25 @@ export default function Home() {
           </div>
 
           <div className='tw-max-w-screen-lg tw-mt-24 tw-mx-auto tw-flex tw-flex-wrap tw-items-center tw-px-4 sm:tw-px-0'>
-            <div className='tw-w-full sm:tw-w-1/2 tw-text-base sm:tw-text-lg tw-text-center sm:tw-pr-4'>Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai. Atas kehadiran serta doa restu, kami ucapkan terima kasih.</div>
+            {showNormal ? (
+              <div className='tw-w-full sm:tw-w-1/2 tw-text-base sm:tw-text-lg tw-text-center sm:tw-pr-4'>
+                Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila
+                Bapak/Ibu/Saudara/iberkenan hadir untuk memberikan doa restu kepada kedua mempelai.
+                Atas kehadiran serta doa restu, kami ucapkan terima kasih.
+              </div>
+            ) : (
+              <div className='tw-w-full sm:tw-w-1/2 tw-text-base sm:tw-text-lg tw-text-center sm:tw-pr-4'>
+                Tanpa mengurangi rasa hormat, dikarenakan situasi pandemi saat ini,
+                tidak memungkinkan bagi kami mengundang Bapak/Ibu/Saudara/i
+                untuk menghadiri pernikahan kami dan memberikan doa restu secara langsung.
+                <br />
+                <br />
+                Teriring permohonan maaf dan ucapan terima kasih yang tulus,
+                semoga Bapak/Ibu/Saudara/i dapat memaklumi kondisi ini,
+                semoga kita semua selalu ada dalam keadaan sehat dan dapat melalui situasi ini
+                dengan sebaik-baiknya.
+              </div>
+            )}
             <div className='tw-w-full sm:tw-w-1/2 tw-text-center'>
               <div className='tw-mt-8 sm:tw-mt-0 tw-text-lg sm:tw-text-2xl'>Berikan Ucapan / Doa</div>
               <form onSubmit={handleSubmit}>
