@@ -240,7 +240,11 @@ export default function Home() {
                 <div className='tw-text-2xl tw-my-3'>Resepesi</div>
                 <div className='tw-text-gray-600'>Sabtu, 11 September 2021</div>
                 <div className='tw-border-t tw-border-black tw-w-1/3 tw-mx-auto tw-my-8' />
-                <div className='tw-text-xl'>Pukul 12.00 WIB</div>
+                <div className='tw-text-xl'>
+                  Pukul 12.00
+                  <span className='tw-text-sm'>s/d</span>
+                  17.00 WIB
+                </div>
                 <div className='tw-text-sm tw-italic'>
                   Kp. Pangradin 2 RT 001/RW 005
                   <br />
