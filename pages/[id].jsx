@@ -34,6 +34,7 @@ export default function Home() {
   const [soundStatus, setSoundStatus] = useState(Sound.status.STOPPED);
   const [showCover, setShowCover] = useState(true);
   const [showNormal, setShowNormal] = useState(true);
+  const [showDigitalPocket, setShowDigitalPocket] = useState(true);
   const [invitationName, setInvitationName] = useState('');
   const [isShowTitle, setShowTitle] = useState(false);
   const [listGreetings, setListGreetings] = useState([]);
@@ -46,7 +47,10 @@ export default function Home() {
     setInvitationName(AkadOnly[id]);
   } else if (AkadResepsi[id] && !invitationName) {
     setInvitationName(AkadResepsi[id]);
-    if (ShowTitle.find((selectedName) => selectedName === AkadResepsi[id])) setShowTitle(true);
+    if (ShowTitle.find((selectedName) => selectedName === AkadResepsi[id])) {
+      setShowTitle(true);
+      setShowDigitalPocket(false);
+    }
   }
 
   const images = [
@@ -412,7 +416,7 @@ export default function Home() {
             <div className='tw-w-full tw-border-t tw-border-black' />
           </div>
 
-          {!ShowTitle && (
+          {showDigitalPocket && (
             <div className='tw-w-full tw-px-4 sm:tw-p-0 sm:tw-w-1/2 tw-my-12 tw-mx-auto tw-text-center sm:tw-text-lg'>
               <div className='tw-my-4'>
                 Tanpa mengurangi rasa hormat, bagi keluarga, sahabat dan rekan yang ingin
