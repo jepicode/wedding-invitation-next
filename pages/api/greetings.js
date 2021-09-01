@@ -18,6 +18,7 @@ const handler = async (req, res) => {
     }
   }
   if (req.method === 'GET') {
+    return res.status(200).json({ status: true, data: [], uy: process.env.mongodburl });
     try {
       const listGreetings = await Greeting.find({});
       return res.status(200).json({ status: true, data: listGreetings });
