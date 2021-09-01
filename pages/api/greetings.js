@@ -1,36 +1,3 @@
-// import connectDB from '../../middleware/mongodb';
-// import Greeting from '../../models/greeting';
-
-// const handler = async (req, res) => {
-//   if (req.method === 'POST') {
-//     const { name, greetings, isWillCome } = req.body;
-
-//     try {
-//       const greetingData = new Greeting({
-//         name,
-//         greetings,
-//         isWillCome
-//       });
-//       await greetingData.save();
-//       return res.status(200).json({ status: true, message: 'Succes' });
-//     } catch (err) {
-//       return res.status(500).json({ status: false, message: 'Failed Save' });
-//     }
-//   }
-//   if (req.method === 'GET') {
-//     return res.status(200).json({ status: true, data: [], uy: process.env.mongodburl });
-//     try {
-//       const listGreetings = await Greeting.find({});
-//       return res.status(200).json({ status: true, data: listGreetings });
-//     } catch (err) {
-//       return res.status(500).json({ status: false, message: 'Failed Load' });
-//     }
-//   }
-//   return res.status(404).json({ status: false, message: 'Not Found' });
-// };
-
-// export default connectDB(handler);
-
 import dbConnect from '../../lib/dbConnect';
 import Greeting from '../../models/greeting';
 
@@ -43,9 +10,9 @@ export default async function handler(req, res) {
     case 'GET':
       try {
         const listGreetings = await Greeting.find({});
-        res.status(200).json({ success: true, data: listGreetings });
+        res.status(200).json({ status: true, data: listGreetings });
       } catch (error) {
-        res.status(400).json({ success: false });
+        res.status(400).json({ status: false });
       }
       break;
     case 'POST':
@@ -64,7 +31,7 @@ export default async function handler(req, res) {
       }
       break;
     default:
-      res.status(400).json({ success: false });
+      res.status(400).json({ status: false });
       break;
   }
 }
