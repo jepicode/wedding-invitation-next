@@ -1,9 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useCallback, useState } from 'react';
 import {
   FaBriefcaseMedical,
   FaCalendarCheck,
+  FaComment,
   FaCopy,
   FaEnvelopeOpenText,
   FaGift,
@@ -34,6 +36,8 @@ export default function Home() {
   const [showNormal, setShowNormal] = useState(true);
   const [invitationName, setInvitationName] = useState('');
   const [isShowTitle, setShowTitle] = useState(false);
+  const [listGreetings, setListGreetings] = useState([]);
+  const [isLoadedGreetings, setIsLoadedGreetings] = useState(false);
 
   const router = useRouter();
   const { id } = router.query;
@@ -51,7 +55,11 @@ export default function Home() {
     '/slideshow/03.jpg',
     '/slideshow/04.jpg',
     '/slideshow/05.jpg',
-    '/slideshow/06.jpg'
+    '/slideshow/06.jpg',
+    '/slideshow/07.jpg',
+    '/slideshow/08.jpg',
+    '/slideshow/09.jpg',
+    '/slideshow/10.jpg'
   ];
 
   const openImageViewer = useCallback((index) => {
@@ -64,25 +72,49 @@ export default function Home() {
     setIsViewerOpen(false);
   };
 
+  const getGreetings = () => {
+    fetch('/api/greetings', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(async (res) => {
+      const { data, status } = await res.json();
+      if (status) {
+        setListGreetings(data);
+      }
+    }).catch(() => {});
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch('/api/email', {
+    let isWillCome = null;
+    if (confirmation === 'yes') isWillCome = true;
+    else if (confirmation === 'no') isWillCome = false;
+
+    fetch('/api/greetings', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ name, notes, confirmation })
-    }).then((res) => {
-      if (res.status === 200) {
-        console.log('Success');
-      }
+      body: JSON.stringify({ name, greetings: notes, isWillCome })
+    }).then(() => {
       setName('');
       setNotes('');
       setConfirmation('');
+      getGreetings();
     });
   };
+
+  if (!isLoadedGreetings) {
+    setIsLoadedGreetings(true);
+    if (listGreetings && !listGreetings.length) {
+      getGreetings();
+    }
+  }
 
   return (
     <>
@@ -187,8 +219,8 @@ export default function Home() {
                     (Alm.) Aan Muhidin &amp; Sukati
                   </div>
                 </div>
-                <div className='sm:tw-w-1/3 tw-w-2/3 tw-mx-auto sm:tw-my-0 tw-my-4'>
-                  <Image src='/main-photo.png' alt='Main Photo' width={500} height={500} />
+                <div className='tw-h-64 tw-w-64 tw-relative tw-m-4 tw-shadow-lg tw-rounded-full tw-mx-auto' onClick={() => openImageViewer(0)}>
+                  <Image src='/main-photo.jpg' layout='fill' objectFit='cover' className='tw-rounded-full' />
                 </div>
                 <div className='sm:tw-w-1/3'>
                   <div className='tw-font-sacramento tw-text-3xl tw-font-bold'>
@@ -210,20 +242,22 @@ export default function Home() {
                 <path className='tw-fill-main-background' d='M0,256L30,234.7C60,213,120,171,180,149.3C240,128,300,128,360,149.3C420,171,480,213,540,224C600,235,660,213,720,186.7C780,160,840,128,900,133.3C960,139,1020,181,1080,202.7C1140,224,1200,224,1260,202.7C1320,181,1380,139,1410,117.3L1440,96L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z' />
               </svg>
             </div>
-            <div className='tw-h-152 tw-absolute tw-top-0 tw-left-0 tw-right-0 tw-z-0 tw-opacity-40'>
+            <div className='tw-absolute tw-top-0 tw-left-0 tw-right-0 tw-bottom-0 tw-z-0'>
               <Image src='/second-photo.jpg' layout='fill' objectFit='cover' objectPosition='center top' />
             </div>
-            <div className='tw-h-152 sm:tw-w-1/3 sm:tw-p-0 tw-px-4 tw-my-0 tw-mx-auto tw-text-center tw-flex tw-flex-row tw-items-center'>
-              <div className='tw-w-full'>
-                <div className='tw-text-3xl tw-uppercase tw-tracking-wider'>Save The Date</div>
-                <div className='tw-font-sacramento tw-text-5xl tw-my-4 tw-font-bold'>Wedding Invitation</div>
-                <div className='tw-border-t tw-border-black tw-my-6 sm:tw-w-full tw-w-1/2 tw-mx-auto' />
-                <div className='tw-text-lg tw-font-open-sans'>
-                  Kami akan menikah,
-                  <br />
-                  dan kami ingin Anda menjadi bagian dari
-                  <br />
-                  hari istimewa kami!
+            <div className='tw-absolute tw-top-0 tw-left-0 tw-right-0 tw-z-0 tw-bottom-0 tw-bg-black tw-opacity-20' />
+            <div className='tw-h-152 sm:tw-w-1/3 sm:tw-p-0 tw-px-4 tw-mx-auto tw-text-center tw-absolute tw-inset-0'>
+              <div className='tw-h-full tw-w-full tw-flex tw-items-center tw-justify-center tw-mx-auto'>
+                <div className='tw-w-full tw-text-white'>
+                  <div className='tw-font-sacramento tw-text-5xl tw-my-4 tw-font-bold'>Wedding Invitation</div>
+                  <div className='tw-border-t tw-border-white tw-my-6 sm:tw-w-full tw-w-1/2 tw-mx-auto' />
+                  <div className='tw-font-open-sans'>
+                    Dengan memohon Rahmat dan Ridho Allah SWT,
+                    <br />
+                    <br />
+                    Kami bermaksud melangsungkan pernikahan, izinkan kami untuk berbagi
+                    kebahagiaan di hari istimewa kami
+                  </div>
                 </div>
               </div>
             </div>
@@ -295,7 +329,7 @@ export default function Home() {
             <div className='tw-w-full tw-border-t tw-border-black' />
           </div>
 
-          <div className='tw-max-w-screen tw-text-center'>
+          <div className='tw-max-w-screen sm:tw-w-2/3 tw-mx-auto tw-text-center'>
             <div className='tw-uppercase tw-text-3xl'>Wedding Gallery</div>
             <div className='tw-font-sacramento tw-text-5xl tw-my-4 tw-font-bold'>Our Memories</div>
             <div className='tw-flex tw-flex-wrap tw-text-center tw-justify-center'>
@@ -316,6 +350,18 @@ export default function Home() {
               </div>
               <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(5)}>
                 <Image src='/slideshow/06.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
+              </div>
+              <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(6)}>
+                <Image src='/slideshow/07.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
+              </div>
+              <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(7)}>
+                <Image src='/slideshow/08.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
+              </div>
+              <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(8)}>
+                <Image src='/slideshow/09.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
+              </div>
+              <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(9)}>
+                <Image src='/slideshow/10.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
               </div>
             </div>
           </div>
@@ -367,10 +413,9 @@ export default function Home() {
           </div>
 
           <div className='tw-w-full tw-px-4 sm:tw-p-0 sm:tw-w-1/2 tw-my-12 tw-mx-auto tw-text-center sm:tw-text-lg'>
-            <div className='tw-my-4'>Doa Restu Anda merupakan karunia yang sangat berarti bagi kami.</div>
             <div className='tw-my-4'>
-              Dan jika memberi adalah ungkapan tanda kasih Anda,
-              Anda dapat memberi kado secara cashless.
+              Tanpa mengurangi rasa hormat, bagi keluarga, sahabat dan rekan yang ingin
+              memberikan tanda kasih untuk kami, dapat melalui :
             </div>
             <div className='tw-mt-8 tw-flex'>
               <div className='tw-w-1/2'>
@@ -414,43 +459,78 @@ export default function Home() {
           </div>
 
           <div className='tw-max-w-screen-lg tw-mt-24 tw-mx-auto tw-flex tw-flex-wrap tw-items-center tw-px-4 sm:tw-px-0'>
-            {showNormal ? (
-              <div className='tw-w-full sm:tw-w-1/2 tw-text-base sm:tw-text-lg tw-text-center sm:tw-pr-4'>
-                Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila
-                Bapak/Ibu/Saudara/iberkenan hadir untuk memberikan doa restu kepada kedua mempelai.
-                Atas kehadiran serta doa restu, kami ucapkan terima kasih.
-              </div>
-            ) : (
-              <div className='tw-w-full sm:tw-w-1/2 tw-text-base sm:tw-text-lg tw-text-center sm:tw-pr-4'>
-                Tanpa mengurangi rasa hormat, dikarenakan situasi pandemi saat ini,
-                tidak memungkinkan bagi kami mengundang Bapak/Ibu/Saudara/i
-                untuk menghadiri pernikahan kami dan memberikan doa restu secara langsung.
-                <br />
-                <br />
-                Teriring permohonan maaf dan ucapan terima kasih yang tulus,
-                semoga Bapak/Ibu/Saudara/i dapat memaklumi kondisi ini,
-                semoga kita semua selalu ada dalam keadaan sehat dan dapat melalui situasi ini
-                dengan sebaik-baiknya.
-              </div>
-            )}
+            <div className='tw-w-full sm:tw-w-1/2 tw-text-base sm:tw-text-lg tw-text-center sm:tw-pr-4'>
+              {showNormal ? (
+                <div>
+                  Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila
+                  Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa
+                  restu kepada kedua mempelai.
+                  <br />
+                  <br />
+                  Atas kehadiran serta doa restu, kami ucapkan terima kasih.
+                  <br />
+                  <br />
+                  Dari kami yang berbahagia
+                </div>
+              ) : (
+                <div>
+                  Tanpa mengurangi rasa hormat, dikarenakan situasi pandemi saat ini,
+                  tidak memungkinkan bagi kami mengundang Bapak/Ibu/Saudara/i
+                  untuk menghadiri pernikahan kami dan memberikan doa restu secara langsung.
+                  <br />
+                  <br />
+                  Teriring permohonan maaf dan ucapan terima kasih yang tulus,
+                  semoga Bapak/Ibu/Saudara/i dapat memaklumi kondisi ini,
+                  semoga kita semua selalu ada dalam keadaan sehat dan dapat melalui situasi ini
+                  dengan sebaik-baiknya.
+                </div>
+              )}
+              <div className='tw-font-sacramento tw-text-5xl tw-my-4 tw-font-bold'>Jepi &amp; Rere</div>
+            </div>
+            <div className='tw-w-1/2 tw-border-t sm:tw-hidden tw-border-black tw-my-8 tw-mx-auto' />
             <div className='tw-w-full sm:tw-w-1/2 tw-text-center'>
-              <div className='tw-mt-8 sm:tw-mt-0 tw-text-lg sm:tw-text-2xl'>Berikan Ucapan / Doa</div>
+              <div className='tw-uppercase tw-text-gray-600'>Best Wishes</div>
+              <div className='tw-font-sacramento tw-text-5xl tw-my-4 tw-font-bold'>Ucapan dan Doa</div>
               <form onSubmit={handleSubmit}>
                 <input type='text' placeholder='Nama' name='name' className='tw-block tw-w-full tw-my-4 tw-p-2 tw-rounded-md' value={name} onChange={(e) => setName(e.target.value)} />
                 <textarea placeholder="Berikan Ucapan dan Do'a Restu" name='notes' className='tw-block tw-w-full tw-my-4 tw-p-2 tw-rounded-md tw-resize-none' rows='4' value={notes} onChange={(e) => setNotes(e.target.value)} />
-                <label htmlFor='yes' className='tw-text-left tw-text-gray-600 tw-text-sm tw-italic tw-flex tw-items-center'>
-                  <input type='radio' value='yes' name='confirmation' id='yes' className='tw-mr-2' checked={confirmation === 'yes'} onChange={(e) => setConfirmation(e.target.value)} />
-                  <span>Saya akan datang</span>
-                </label>
-                <label htmlFor='no' className='tw-text-left tw-text-gray-600 tw-text-sm tw-italic tw-flex tw-items-center'>
-                  <input type='radio' value='no' name='confirmation' id='no' className='tw-mr-2' checked={confirmation === 'no'} onChange={(e) => setConfirmation(e.target.value)} />
-                  <span>Maaf, saya tidak dapat datang</span>
-                </label>
+                {showNormal && (
+                  <>
+                    <label htmlFor='yes' className='tw-text-left tw-text-gray-600 tw-text-sm tw-italic tw-flex tw-items-center'>
+                      <input type='radio' value='yes' name='confirmation' id='yes' className='tw-mr-2' checked={confirmation === 'yes'} onChange={(e) => setConfirmation(e.target.value)} />
+                      <span>Saya akan datang</span>
+                    </label>
+                    <label htmlFor='no' className='tw-text-left tw-text-gray-600 tw-text-sm tw-italic tw-flex tw-items-center'>
+                      <input type='radio' value='no' name='confirmation' id='no' className='tw-mr-2' checked={confirmation === 'no'} onChange={(e) => setConfirmation(e.target.value)} />
+                      <span>Maaf, saya tidak dapat datang</span>
+                    </label>
+                  </>
+                )}
                 <button type='submit' className='tw-px-4 tw-py-2 tw-border tw-border-gray-500 tw-w-full tw-mt-4 tw-rounded-lg tw-text-sm'>
                   Kirim Ucapan
                 </button>
               </form>
             </div>
+          </div>
+
+          <div className='tw-w-1/2 tw-mt-24 tw-mb-12 tw-mx-auto tw-flex tw-items-center'>
+            <div className='tw-w-full tw-border-t tw-border-black' />
+            <div className='tw-w-1/3 tw-flex tw-justify-center tw-text-gray'>
+              <FaComment className='tw-fill-current tw-text-gray-600' />
+            </div>
+            <div className='tw-w-full tw-border-t tw-border-black' />
+          </div>
+
+          <div className='tw-max-w-screen-lg tw-mx-auto tw-h-80 tw-overflow-y-auto'>
+            {listGreetings && listGreetings.map((greeting) => (
+              <div className='tw-bg-white tw-py-2 tw-px-4 tw-rounded-md tw-shadow-md tw-mb-4 tw-mx-4 sm:tw-mx-0' key={greeting._id}>
+                <div className='tw-font-semibold tw-text-sm'>{greeting.name}</div>
+                {(greeting.isWillCome || greeting.isWillCome === false) && (
+                  <div className='tw-text-gray-600 tw-text-sm'>{greeting.isWillCome ? 'Saya akan datang' : 'Maaf, saya tidak dapat datang'}</div>
+                )}
+                <div className='tw-mt-2'>{greeting.greetings}</div>
+              </div>
+            ))}
           </div>
 
           <div className='tw-w-full tw-bg-brown tw-mt-16'>
