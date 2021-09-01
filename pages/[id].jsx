@@ -467,12 +467,6 @@ export default function Home() {
                   Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila
                   Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa
                   restu kepada kedua mempelai.
-                  <br />
-                  <br />
-                  Atas kehadiran serta doa restu, kami ucapkan terima kasih.
-                  <br />
-                  <br />
-                  Dari kami yang berbahagia
                 </div>
               ) : (
                 <div>
@@ -487,7 +481,6 @@ export default function Home() {
                   dengan sebaik-baiknya.
                 </div>
               )}
-              <div className='tw-font-sacramento tw-text-5xl tw-my-4 tw-font-bold'>Jepi &amp; Rere</div>
             </div>
             <div className='tw-w-1/2 tw-border-t sm:tw-hidden tw-border-black tw-my-8 tw-mx-auto' />
             <div className='tw-w-full sm:tw-w-1/2 tw-text-center'>
@@ -533,6 +526,18 @@ export default function Home() {
                 <div className='tw-mt-2'>{greeting.greetings}</div>
               </div>
             ))}
+          </div>
+
+          <div className='tw-text-center tw-my-4'>
+            <div className='tw-text-gray-600'>
+              Atas doa dan restu dari Bapak/Ibu/Saudara/i, Kami mengucapkan terima kasih
+              <br />
+              <br />
+              Kami yang berbahagia
+            </div>
+            <div className='tw-font-sacramento tw-text-5xl tw-my-4 tw-font-bold'>
+              Jepi &amp; Rere
+            </div>
           </div>
 
           <div className='tw-w-full tw-bg-brown tw-mt-16'>
