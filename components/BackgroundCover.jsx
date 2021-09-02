@@ -1,21 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/dist/client/router';
 
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/dist/client/router';
 import AkadOnly from '../public/akad-only.json';
 import AkadResepsi from '../public/akad-resepsi.json';
 
-const BackgroundCover = ({ openCover, showCover }) => {
+const BackgroundCover = ({ id, openCover, showCover }) => {
   let invitationName;
+  const [invitationId, setInvitationId] = useState('');
 
   const router = useRouter();
-  const { id } = router.query;
-  if (AkadOnly[id]) {
-    invitationName = AkadOnly[id];
-  } else if (AkadResepsi[id]) {
-    invitationName = AkadResepsi[id];
+  if (id) {
+    if (AkadOnly[id]) {
+      invitationName = AkadOnly[id];
+    } else if (AkadResepsi[id]) {
+      invitationName = AkadResepsi[id];
+    } else {
+      router.push('/');
+    }
   }
+
+  const handleOpen = () => {
+    if (!id && invitationId) {
+      if (!AkadOnly[invitationId] && !AkadResepsi[invitationId]) toast.error('Maaf, Kode Undangan Tidak Terdaftar.');
+      else openCover(invitationId);
+    } else if (id) {
+      openCover();
+    } else {
+      toast.warn('Harap Isi Kode Undangan Terlebih Dahulu.');
+    }
+  };
 
   return (
     <div className={`tw-relative tw-w-screen ${showCover ? 'tw-h-screen' : 'tw-h-0'} tw-bg-main-background tw-duration-1000 tw-left-0 tw-right-0  tw-z-50`}>
@@ -31,11 +47,23 @@ const BackgroundCover = ({ openCover, showCover }) => {
               Kepada Yth.
               <br />
               Bapak/Ibu/Saudra/i
+              {!id && (
+                <>
+                  <br />
+                  Silahkan Masukkan Kode Undangan
+                </>
+              )}
             </div>
-            <div className='tw-text-shadow-lg tw-text-lg tw-text-white tw-font-bold tw-font-open-sans tw-underline'>
-              {invitationName}
-            </div>
-            <button type='button' className='tw-text-white tw-border tw-border-white tw-px-4 tw-py-1 tw-rounded tw-my-8' onClick={openCover}>
+            {invitationName ? (
+              <div className='tw-text-shadow-lg tw-text-lg tw-text-white tw-font-bold tw-font-open-sans tw-underline'>
+                {invitationName}
+              </div>
+            ) : (
+              <div>
+                <input type='text' value={invitationId} onChange={(e) => setInvitationId(e.target.value)} className='tw-block tw-w-full tw-my-4 tw-p-2 tw-rounded-md' placeholder='Kode Undangan' />
+              </div>
+            )}
+            <button type='button' className='tw-text-white tw-border tw-border-white tw-px-4 tw-py-1 tw-rounded tw-my-8' onClick={handleOpen}>
               Buka Undangan
             </button>
           </div>
@@ -46,9 +74,14 @@ const BackgroundCover = ({ openCover, showCover }) => {
 };
 
 BackgroundCover.propTypes = {
+  id: PropTypes.string,
   showCover: PropTypes.bool.isRequired,
 
   openCover: PropTypes.func.isRequired
+};
+
+BackgroundCover.defaultProps = {
+  id: null
 };
 
 export default BackgroundCover;

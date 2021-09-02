@@ -1,14 +1,11 @@
 import React from 'react';
 import { FaCalendarCheck } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 import { Slide } from 'react-awesome-reveal';
-import { useRouter } from 'next/dist/client/router';
 
 import AkadOnly from '../public/akad-only.json';
 
-const DateInformation = () => {
-  const router = useRouter();
-  const { id } = router.query;
-
+const DateInformation = ({ id }) => {
   let isShowResepsi = true;
   if (AkadOnly[id]) isShowResepsi = false;
 
@@ -72,9 +69,9 @@ const DateInformation = () => {
       <div className='tw-mx-auto tw-text-center'>
         <iframe
           title='Map'
-          src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.0022382806573!2d106.47513782923156!3d-6.5205486672757464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMzEnMTQuMCJTIDEwNsKwMjgnMzIuNSJF!5e0!3m2!1sen!2sid!4v1630607628271!5m2!1sen!2sid'
+          src='https://www.google.com/maps/d/embed?mid=1xVbZWv570OzgPNozsOJib-dM4t9wUOfY'
           width='350'
-          height='200'
+          height='350'
           style={{ border: 0, margin: '0 auto' }}
           allowFullScreen=''
           loading='lazy'
@@ -82,6 +79,10 @@ const DateInformation = () => {
       </div>
     </div>
   );
+};
+
+DateInformation.propTypes = {
+  id: PropTypes.string.isRequired
 };
 
 export default DateInformation;

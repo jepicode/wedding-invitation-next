@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { FaComment } from 'react-icons/fa';
-import { useRouter } from 'next/dist/client/router';
-
+import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import AkadOnly from '../public/akad-only.json';
 
 import ListGreetings from './ListGreetings';
 
-const FooterMessage = () => {
-  const router = useRouter();
-  const { id } = router.query;
+import AkadOnly from '../public/akad-only.json';
 
+const FooterMessage = ({ id }) => {
   const [name, setName] = useState('');
   const [notes, setNotes] = useState('');
   const [confirmation, setConfirmation] = useState('');
@@ -31,6 +28,8 @@ const FooterMessage = () => {
       const { data, status } = await res.json();
       if (status) {
         setListGreetings(data);
+      } else {
+        toast.error('Failed Geeting Messages');
       }
     }).catch(() => {
       toast.error('Failed Getting Messages');
@@ -102,7 +101,7 @@ const FooterMessage = () => {
           <div className='tw-font-sacramento tw-text-5xl tw-my-4 tw-font-bold'>Ucapan dan Doa</div>
           <form onSubmit={handleSubmit}>
             <input type='text' placeholder='Nama' name='name' className='tw-block tw-w-full tw-my-4 tw-p-2 tw-rounded-md' value={name} onChange={(e) => setName(e.target.value)} />
-            <textarea placeholder="Berikan Ucapan dan Do'a Restu" name='notes' className='tw-block tw-w-full tw-my-4 tw-p-2 tw-rounded-md tw-resize-none' rows='4' value={notes} onChange={(e) => setNotes(e.target.value)} />
+            <textarea placeholder='Berikan Ucapan dan Doa Restu' name='notes' className='tw-block tw-w-full tw-my-4 tw-p-2 tw-rounded-md tw-resize-none' rows='4' value={notes} onChange={(e) => setNotes(e.target.value)} />
             {isShowInvitedInformation && (
               <>
                 <label htmlFor='yes' className='tw-text-left tw-text-gray-600 tw-text-sm tw-italic tw-flex tw-items-center'>
@@ -145,6 +144,10 @@ const FooterMessage = () => {
       </div>
     </>
   );
+};
+
+FooterMessage.propTypes = {
+  id: PropTypes.string.isRequired
 };
 
 export default FooterMessage;

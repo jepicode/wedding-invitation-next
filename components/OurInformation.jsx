@@ -1,7 +1,7 @@
 import React from 'react';
 import { Fade } from 'react-awesome-reveal';
 import Image from 'next/image';
-import { useRouter } from 'next/dist/client/router';
+import PropTypes from 'prop-types';
 
 import SpaceWithIcon from './SpaceWithIcon';
 
@@ -10,10 +10,7 @@ import AkadResepsi from '../public/akad-resepsi.json';
 import ShowTitle from '../public/show-title.json';
 import MainPhoto from '../public/main-photo.jpg';
 
-const OutInformation = () => {
-  const router = useRouter();
-  const { id } = router.query;
-
+const OurInformation = ({ id }) => {
   let invitationName;
   let isShowTitle = false;
 
@@ -75,7 +72,7 @@ const OutInformation = () => {
             <Image src={MainPhoto} layout='fill' objectFit='cover' className='tw-rounded-full' placeholder='blur' />
           </div>
           <div className='sm:tw-w-1/3'>
-            <Fade direction='right' triggerOnce>
+            <Fade direction='left' triggerOnce>
               <div className='tw-font-sacramento tw-text-3xl tw-font-bold'>
                 Reza Ayu Pertiwi
                 {isShowTitle && ', S.Farm'}
@@ -93,4 +90,8 @@ const OutInformation = () => {
   );
 };
 
-export default OutInformation;
+OurInformation.propTypes = {
+  id: PropTypes.string.isRequired
+};
+
+export default OurInformation;

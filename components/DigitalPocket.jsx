@@ -1,15 +1,13 @@
 import React from 'react';
 import { FaCopy } from 'react-icons/fa';
 import Image from 'next/image';
-import { useRouter } from 'next/dist/client/router';
+import PropTypes from 'prop-types';
 
 import { toast } from 'react-toastify';
 import AkadResepsi from '../public/akad-resepsi.json';
 import ShowTitle from '../public/show-title.json';
 
-const DigitalPocket = () => {
-  const router = useRouter();
-  const { id } = router.query;
+const DigitalPocket = ({ id }) => {
   let isShowDigitalPocket = true;
 
   if (AkadResepsi[id] && ShowTitle.find((selectedName) => selectedName === AkadResepsi[id])) {
@@ -51,6 +49,10 @@ const DigitalPocket = () => {
   }
 
   return <div />;
+};
+
+DigitalPocket.propTypes = {
+  id: PropTypes.string.isRequired
 };
 
 export default DigitalPocket;

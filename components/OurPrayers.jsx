@@ -10,7 +10,7 @@ export default function OurPrayers() {
         </svg>
       </div>
       <Parallax bgImage='/third-photo.jpg' strength={700} bgImageStyle={{ opacity: '0.5', width: '100%' }} bgStyle={{ backgroundPosition: 'center top' }} bgImageSizes='50%'>
-        <div className='tw-w-full sm:tw-w-3/4 tw-mx-auto tw-my-24 sm:tw-my-32 tw-text-center tw-py-4 tw-px-4 sm:tw-p-20 tw-bg-brown tw-bg-opacity-40 tw-rounded-lg tw-shadow-md'>
+        <div className='tw-w-full sm:tw-w-3/4 tw-mx-auto tw-my-24 sm:tw-my-32 tw-text-center tw-p-4 md:tw-p-20 tw-bg-brown tw-bg-opacity-40 tw-rounded-lg tw-shadow-md'>
           <div className='tw-uppercase tw-text-white tw-text-lg sm:tw-text-3xl tw-font-open-sans'>We Love Each Other</div>
           <div className='tw-font-sacramento tw-text-white tw-font-bold tw-text-5xl sm:tw-text-5xl'>Doa Kami</div>
           <div className='tw-text-white tw-text-xl sm-tw-text-3xl tw-w-full sm:tw-w-2/3 tw-mt-12 tw-mx-auto'>اللهم بارِكْ لي في أهلي، وبارِكْ لأهلي فِيَّ، اللهم ارزقْهم مِنِّي، وارزقْني منهم، اللهم اجمع بينَنا ما جمعتَ في خيرٍ، وفرِّق بيننا إذا فرقتَ في خيرٍ</div>
