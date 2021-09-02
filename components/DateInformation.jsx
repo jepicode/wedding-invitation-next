@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaCalendarCheck } from 'react-icons/fa';
-import { Zoom } from 'react-awesome-reveal';
+import { Slide } from 'react-awesome-reveal';
 import { useRouter } from 'next/dist/client/router';
 
 import AkadOnly from '../public/akad-only.json';
@@ -24,7 +24,7 @@ const DateInformation = () => {
       </div>
 
       <div className={`sm:tw-flex tw-block ${isShowResepsi ? 'tw-justify-around' : 'tw-justify-center'} tw-my-8`}>
-        <Zoom direction='up' duration='1500' triggerOnce>
+        <Slide direction='up' duration='1500' triggerOnce>
           <div className='tw-bg-white sm:tw-m-0 tw-m-4 tw-py-8 tw-px-16 tw-text-center tw-font-open-sans tw-rounded-lg tw-shadow-md'>
             <div className='tw-flex tw-justify-center tw-text-5xl'>
               <FaCalendarCheck className='tw-fill-current tw-text-gray-600' />
@@ -41,10 +41,10 @@ const DateInformation = () => {
               Kab. Bogor, Jawa Barat
             </div>
           </div>
-        </Zoom>
+        </Slide>
 
         {isShowResepsi && (
-          <Zoom direction='down' duration='1500' triggerOnce>
+          <Slide direction='down' duration='1500' triggerOnce>
             <div className='tw-bg-white sm:tw-m-0 tw-m-4 tw-py-8 tw-px-16 tw-text-center tw-font-open-sans tw-rounded-lg tw-shadow-md'>
               <div className='tw-flex tw-justify-center tw-text-5xl'>
                 <FaCalendarCheck className='tw-fill-current tw-text-gray-600' />
@@ -65,7 +65,7 @@ const DateInformation = () => {
                 Kab. Bogor, Jawa Barat
               </div>
             </div>
-          </Zoom>
+          </Slide>
         )}
       </div>
 
