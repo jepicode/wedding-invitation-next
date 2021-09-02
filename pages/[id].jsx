@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Sound from 'react-sound';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Gallery from '../components/Gallery';
 import HealthProtocol from '../components/HealthProtocol';
@@ -35,6 +37,17 @@ export default function Home() {
       <Head>
         <title>Wedding Invitation Jepi &amp; Reza</title>
       </Head>
+      <ToastContainer
+        position='bottom-center'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Sound url='/song/BeautifulInWhite.mp3' playStatus={soundStatus} />
       <ButtonAudio
         isPlaying={soundStatus === Sound.status.PLAYING}

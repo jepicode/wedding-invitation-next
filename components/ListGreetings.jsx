@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Slide } from 'react-awesome-reveal';
 
 const ListGreetings = ({ greetings }) => (
-  <Slide direction='up' triggerOnce>
+  <Slide direction='down' triggerOnce>
     <div className='tw-max-w-screen-lg tw-mx-auto tw-h-80 tw-overflow-y-auto'>
       {greetings && greetings.map((greeting) => (
         <div className='tw-bg-white tw-py-2 tw-px-4 tw-rounded-md tw-shadow-md tw-mb-4 tw-mx-4 sm:tw-mx-0' key={greeting._id}>

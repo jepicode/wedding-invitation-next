@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaComment } from 'react-icons/fa';
 import { useRouter } from 'next/dist/client/router';
 
+import { toast } from 'react-toastify';
 import AkadOnly from '../public/akad-only.json';
 
 import ListGreetings from './ListGreetings';
@@ -31,17 +32,22 @@ const FooterMessage = () => {
       if (status) {
         setListGreetings(data);
       }
-    }).catch(() => {});
+    }).catch(() => {
+      toast.error('Failed Getting Messages');
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     let isWillCome = null;
+    if (!name || !notes) {
+      return toast.warn('Please fill the inputs first');
+    }
+
     if (confirmation === 'yes') isWillCome = true;
     else if (confirmation === 'no') isWillCome = false;
 
-    fetch('/api/greetings', {
+    return fetch('/api/greetings', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -53,6 +59,9 @@ const FooterMessage = () => {
       setNotes('');
       setConfirmation('');
       getGreetings();
+      toast.success('Success Send Messages', { position: 'bottom-center' });
+    }).catch(() => {
+      toast.error('Failed Send Messages, Please try again later.');
     });
   };
 

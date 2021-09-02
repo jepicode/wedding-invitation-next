@@ -3,6 +3,7 @@ import { FaCopy } from 'react-icons/fa';
 import Image from 'next/image';
 import { useRouter } from 'next/dist/client/router';
 
+import { toast } from 'react-toastify';
 import AkadResepsi from '../public/akad-resepsi.json';
 import ShowTitle from '../public/show-title.json';
 
@@ -15,6 +16,11 @@ const DigitalPocket = () => {
     isShowDigitalPocket = false;
   }
 
+  const handleCopy = (string) => {
+    navigator.clipboard.writeText(string);
+    toast.success('Copied');
+  };
+
   if (isShowDigitalPocket) {
     return (
       <div className='tw-w-full tw-px-4 sm:tw-p-0 sm:tw-w-1/2 tw-my-12 tw-mx-auto tw-text-center sm:tw-text-lg'>
@@ -25,7 +31,7 @@ const DigitalPocket = () => {
         <div className='tw-mt-8 tw-flex'>
           <div className='tw-w-1/2'>
             <Image src='/bank/bca.png' width='150' height='48' />
-            <button type='button' className='tw-text-bold tw-flex tw-justify-center tw-w-full tw-items-center' title='Copy' onClick={() => navigator.clipboard.writeText('4660058899')}>
+            <button type='button' className='tw-text-bold tw-flex tw-justify-center tw-w-full tw-items-center' title='Copy' onClick={() => handleCopy('4660058899')}>
               4660058899
               <FaCopy className='tw-ml-2 tw-fill-current tw-text-gray-600 tw-text-sm' />
             </button>
@@ -33,7 +39,7 @@ const DigitalPocket = () => {
           </div>
           <div className='tw-w-1/2'>
             <Image src='/bank/mandiri.png' width='150' height='48' />
-            <button type='button' className='tw-text-bold tw-flex tw-justify-center tw-w-full tw-items-center' title='Copy' onClick={() => navigator.clipboard.writeText('1180010569068')}>
+            <button type='button' className='tw-text-bold tw-flex tw-justify-center tw-w-full tw-items-center' title='Copy' onClick={() => handleCopy('1180010569068')}>
               1180010569068
               <FaCopy className='tw-ml-2 tw-fill-current tw-text-gray-600 tw-text-sm' />
             </button>
