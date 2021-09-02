@@ -20,8 +20,9 @@ import ButtonAudio from './ButtonAudio';
 const MainPage = ({ id }) => {
   const [soundStatus, setSoundStatus] = useState(Sound.status.STOPPED);
   const [showCover, setShowCover] = useState(true);
-  const [invitationId, setInvitationId] = useState(id);
-  console.log('saiki', invitationId);
+  const [invitationId, setInvitationId] = useState(null);
+
+  if (!invitationId && id) setInvitationId(id);
 
   const openCover = (newId) => {
     if (newId) {
