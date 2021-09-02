@@ -1,8 +1,20 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useCallback, useState } from 'react';
+import { Fade } from 'react-awesome-reveal';
 import Image from 'next/image';
 import ImageViewer from 'react-simple-image-viewer';
+
+import SlideShow01 from '../public/slideshow/01.jpg';
+import SlideShow02 from '../public/slideshow/02.jpg';
+import SlideShow03 from '../public/slideshow/03.jpg';
+import SlideShow04 from '../public/slideshow/04.jpg';
+import SlideShow05 from '../public/slideshow/05.jpg';
+import SlideShow06 from '../public/slideshow/06.jpg';
+import SlideShow07 from '../public/slideshow/07.jpg';
+import SlideShow08 from '../public/slideshow/08.jpg';
+import SlideShow09 from '../public/slideshow/09.jpg';
+import SlideShow10 from '../public/slideshow/10.jpg';
 
 export default function Gallery() {
   const [currentImage, setCurrentImage] = useState(0);
@@ -31,6 +43,49 @@ export default function Gallery() {
     '/slideshow/10.jpg'
   ];
 
+  const LIST_IMAGES = [
+    {
+      id: 1,
+      url: SlideShow01
+    },
+    {
+      id: 2,
+      url: SlideShow02
+    },
+    {
+      id: 3,
+      url: SlideShow03
+    },
+    {
+      id: 4,
+      url: SlideShow04
+    },
+    {
+      id: 5,
+      url: SlideShow05
+    },
+    {
+      id: 6,
+      url: SlideShow06
+    },
+    {
+      id: 7,
+      url: SlideShow07
+    },
+    {
+      id: 8,
+      url: SlideShow08
+    },
+    {
+      id: 9,
+      url: SlideShow09
+    },
+    {
+      id: 10,
+      url: SlideShow10
+    }
+  ];
+
   return (
     <>
       {isViewerOpen && (
@@ -45,36 +100,13 @@ export default function Gallery() {
         <div className='tw-uppercase tw-text-3xl'>Wedding Gallery</div>
         <div className='tw-font-sacramento tw-text-5xl tw-my-4 tw-font-bold'>Our Memories</div>
         <div className='tw-flex tw-flex-wrap tw-text-center tw-justify-center'>
-          <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(0)}>
-            <Image src='/slideshow/01.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
-          </div>
-          <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(1)}>
-            <Image src='/slideshow/02.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
-          </div>
-          <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(2)}>
-            <Image src='/slideshow/03.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
-          </div>
-          <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(3)}>
-            <Image src='/slideshow/04.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
-          </div>
-          <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(4)}>
-            <Image src='/slideshow/05.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
-          </div>
-          <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(5)}>
-            <Image src='/slideshow/06.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
-          </div>
-          <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(6)}>
-            <Image src='/slideshow/07.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
-          </div>
-          <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(7)}>
-            <Image src='/slideshow/08.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
-          </div>
-          <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(8)}>
-            <Image src='/slideshow/09.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
-          </div>
-          <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(9)}>
-            <Image src='/slideshow/10.jpg' layout='fill' objectFit='cover' className='tw-rounded-lg' />
-          </div>
+          {LIST_IMAGES.map((image, index) => (
+            <Fade duration='1500' triggerOnce key={image.id}>
+              <div className='tw-h-64 tw-w-40 tw-relative tw-m-4 tw-shadow-lg tw-rounded-lg' onClick={() => openImageViewer(index)}>
+                <Image src={image.url} layout='fill' objectFit='cover' className='tw-rounded-lg' placeholder='blur' />
+              </div>
+            </Fade>
+          ))}
         </div>
       </div>
     </>

@@ -8,6 +8,7 @@ import SpaceWithIcon from './SpaceWithIcon';
 import AkadOnly from '../public/akad-only.json';
 import AkadResepsi from '../public/akad-resepsi.json';
 import ShowTitle from '../public/show-title.json';
+import MainPhoto from '../public/main-photo.jpg';
 
 const OutInformation = () => {
   const router = useRouter();
@@ -58,7 +59,7 @@ const OutInformation = () => {
         <div className='tw-w-1/2 tw-text-center tw-mx-auto tw-my-0 tw-uppercase tw-text-3xl tw-mb-8'>The Wedding Of</div>
         <div className='tw-mx-auto tw-my-0 tw-text-center sm:tw-flex tw-block tw-items-center'>
           <div className='sm:tw-w-1/3'>
-            <Fade direction='left'>
+            <Fade direction='left' triggerOnce>
               <div className='tw-font-sacramento tw-text-3xl tw-font-bold'>
                 Jepi Usuluddin
                 {isShowTitle && ', S.T'}
@@ -71,10 +72,10 @@ const OutInformation = () => {
             </Fade>
           </div>
           <div className='tw-h-64 tw-w-64 tw-relative tw-m-4 tw-shadow-lg tw-rounded-full tw-mx-auto'>
-            <Image src='/main-photo.jpg' layout='fill' objectFit='cover' className='tw-rounded-full' />
+            <Image src={MainPhoto} layout='fill' objectFit='cover' className='tw-rounded-full' placeholder='blur' />
           </div>
           <div className='sm:tw-w-1/3'>
-            <Fade direction='right'>
+            <Fade direction='right' triggerOnce>
               <div className='tw-font-sacramento tw-text-3xl tw-font-bold'>
                 Reza Ayu Pertiwi
                 {isShowTitle && ', S.Farm'}
