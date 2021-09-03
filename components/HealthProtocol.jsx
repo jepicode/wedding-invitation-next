@@ -19,27 +19,27 @@ export default function HealthProtocol() {
     {
       id: 2,
       url: Protocol02,
-      label: 'Cuci Tangan'
+      label: 'Pakai Handsanitizer'
     },
     {
       id: 3,
       url: Protocol03,
-      label: 'Cuci Tangan'
+      label: 'Tidak Berkerumun'
     },
     {
       id: 4,
       url: Protocol04,
-      label: 'Cuci Tangan'
+      label: 'Memakai Masker'
     },
     {
       id: 5,
       url: Protocol05,
-      label: 'Cuci Tangan'
+      label: 'Tidak Bersalaman'
     },
     {
       id: 6,
       url: Protocol06,
-      label: 'Cuci Tangan'
+      label: 'Menjaga Jarak'
     }
   ];
 
