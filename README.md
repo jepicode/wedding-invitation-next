@@ -1,34 +1,60 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Wedding-Invitation-Next
 
-## Getting Started
+Wedding Invitation Next is Digital Wedding Invitation based on [Next.js](https://nextjs.org/). This project was created to help people create digital wedding invitation for free, but not cheap.
 
-First, run the development server:
+## Links
 
-```bash
-npm run dev
-# or
-yarn dev
+- [Repo](https://github.com/jepicode/wedding-invitation-next)
+
+- [Live Demo](https://jepi-rere.vercel.app/ckfjdw)
+
+## How to Use
+
+### Download the Repo
+Clone the repo using git
+
+### `git clone https://github.com/jepicode/wedding-invitation-next.git`
+
+or Just download as Zip
+
+### Install Dependencies
+Use the package manager like `npm` or `yarn`
+
+- npm `npm install`
+- yarn `yarn install`
+
+### Create Configuration File
+Because this project using MongoDB as Database, please get your MongoDB URI then put it in `env.local`
+
+- `touch env.local`
+- `vi env.local`
+```javascript
+MONGODB_URI=mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.tdm0q.mongodb.net/<DBNAME>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Running at Local
+Now you can start project in your local server.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### `yarn dev`
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+You can check the result at `localhost:3000`
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Project Information
+This project running totally free.
 
-## Learn More
+- `MongoDB` use MongoDB atlas for free, so you can connect to Database for free and serverless.
+- `Vercel` use Vercel as deployment for free, no commercial use. You can host your project to Vercel, connect it with github. You can change your domain if you don't wanna use `vercel.app` in URL.
 
-To learn more about Next.js, take a look at the following resources:
+This project using `tailwind.css`, so you don't have to worry creating many css files.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Project Structure
+- `pages` pages folder contains frontend and backend file. Because this project just single web page, so we don't need any folder for another pages.
+- `pages/api` api folder contains backend file. There's 2 API in this project, to get list of greetings from guests, and to save greeting from guests.
+- `components` components folder contains any component in frontend, so if you want to change the content of the page, you should change it here.
+- `public` public folder contains static file to serve. Anything like images and song can be change here.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Please make sure to update tests as appropriate.
